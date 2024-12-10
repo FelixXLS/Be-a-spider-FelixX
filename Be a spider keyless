@@ -1,0 +1,227 @@
+local Library = loadstring(Game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wizard"))()
+
+local PhantomForcesWindow = Library:NewWindow("FelixX  Be a spider!🕷️")
+
+local KillingCheats = PhantomForcesWindow:NewSection("Get food 🐜🐌")
+
+KillingCheats:CreateButton("Get 200", function()
+
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local torso = character:WaitForChild("HumanoidRootPart")
+
+local parentObjects = {
+    workspace.Map.Foods.NormalZones.seviye2,
+    workspace.Map.Foods.NormalZones.seviye3,
+    workspace.Map.Foods.NormalZones.seviye1
+}
+
+local function teleportChildren()
+    for _, parent in ipairs(parentObjects) do
+        for _, child in ipairs(parent:GetChildren()) do
+            if child:IsA("BasePart") then
+                child.CFrame = torso.CFrame + Vector3.new(0, 3, 0)
+            end
+        end
+    end
+end
+
+teleportChildren()
+end)
+
+KillingCheats:CreateButton("Get 450", function()
+
+local torso = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") 
+
+local function teleportObjects(zone)
+    for _, object in ipairs(zone:GetChildren()) do
+        if object:IsA("BasePart") then
+            object.CFrame = torso.CFrame
+        end
+    end
+end
+
+-- Zonas a teletransportar
+local zones = {
+    workspace.Map.Foods.NormalZones.seviye6,
+    workspace.Map.Foods.NormalZones.seviye4,
+    workspace.Map.Foods.NormalZones.seviye8,
+    workspace.Map.Foods.NormalZones.seviye7.snake
+}
+
+-- Teletransportar objetos de todas las zonas
+for _, zone in ipairs(zones) do
+    teleportObjects(zone)
+end
+end)
+
+KillingCheats:CreateToggle("autoget all 🥱", function(value)
+autoEzActive = value
+ if value then
+spawn(function()
+while autoEzActive do
+local player = game.Players.LocalPlayer
+local torso = player.Character:WaitForChild("HumanoidRootPart")
+
+-- Lista de objetos a teletransportar
+local objects = {
+    workspace.Map.Foods.NormalZones.seviye1:GetChildren()[103],
+    workspace.Map.Foods.NormalZones.seviye2:GetChildren()[7],
+    workspace.Map.Foods.NormalZones.seviye3:GetChildren()[12],
+    workspace.Map.Foods.NormalZones.seviye4:GetChildren()[2],
+    workspace.Map.Foods.NormalZones.seviye5:GetChildren()[2],
+    workspace.Map.Foods.NormalZones.seviye6:FindFirstChild("mouse"),
+    workspace.Map.Foods.NormalZones.seviye7:GetChildren()[2],
+    workspace.Map.Foods.NormalZones.seviye8:GetChildren()[9],
+    workspace.Map.Foods.NormalZones.seviye9:FindFirstChild("chicken"),
+    workspace.Map.Foods.NormalZones.seviye10:FindFirstChild("rabbit")
+}
+
+-- Función para teletransportar un objeto
+local function teleportObject(object)
+    if object then
+        if object:IsA("Model") and object.PrimaryPart then
+            object:SetPrimaryPartCFrame(torso.CFrame)
+        else
+            object.CFrame = torso.CFrame
+        end
+    end
+end
+
+-- Teletransportar los objetos
+for _, object in pairs(objects) do
+    teleportObject(object)
+end
+wait(1)
+end
+end)
+end
+end)
+
+KillingCheats:CreateToggle("Get all x1.5🥱", function(value)
+autoEzActive = value
+ if value then
+spawn(function()
+while autoEzActive do
+local player = game.Players.LocalPlayer
+local torso = player.Character:WaitForChild("HumanoidRootPart")
+
+-- Lista de objetos a teletransportar
+local objects = {
+    workspace.Map.Foods.NormalZones.seviye1:GetChildren()[103],
+    workspace.Map.Foods.NormalZones.seviye2:GetChildren()[7],
+    workspace.Map.Foods.NormalZones.seviye3:GetChildren()[12],
+    workspace.Map.Foods.NormalZones.seviye4:GetChildren()[2],
+    workspace.Map.Foods.NormalZones.seviye5:GetChildren()[2],
+    workspace.Map.Foods.NormalZones.seviye6:FindFirstChild("mouse"),
+    workspace.Map.Foods.NormalZones.seviye7:GetChildren()[2],
+    workspace.Map.Foods.NormalZones.seviye8:GetChildren()[9],
+    workspace.Map.Foods.NormalZones.seviye9:FindFirstChild("chicken"),
+    workspace.Map.Foods.NormalZones.seviye10:FindFirstChild("rabbit"),
+    workspace.Map.Foods.NormalZones.seviye3:GetChildren()[6],  -- Nuevo objeto
+    workspace.Map.Foods.NormalZones.seviye11.sheep,           -- Nuevo objeto
+    workspace.Map.Foods.NormalZones.seviye8.hedgehog          -- Nuevo objeto
+}
+
+-- Función para teletransportar un objeto y todos sus hijos
+local function teleportObjectAndChildren(object)
+    if object then
+        -- Si el objeto es un Model y tiene PrimaryPart, movemos el Model usando PrimaryPart
+        if object:IsA("Model") and object.PrimaryPart then
+            object:SetPrimaryPartCFrame(torso.CFrame)
+        elseif object:IsA("BasePart") then
+            -- Si el objeto es un BasePart (no Model), movemos su CFrame
+            object.CFrame = torso.CFrame
+        end
+
+        -- Ahora movemos los hijos del objeto, si los tiene
+        for _, child in pairs(object:GetChildren()) do
+            if child:IsA("BasePart") then
+                -- Movemos el hijo a la misma posición
+                child.CFrame = torso.CFrame
+            end
+        end
+    end
+end
+
+-- Teletransportar todos los objetos y sus hijos
+for _, object in pairs(objects) do
+    teleportObjectAndChildren(object)
+end
+wait(1)
+end
+end)
+end
+end)
+
+local KillingCheats = PhantomForcesWindow:NewSection("Player")
+
+KillingCheats:CreateButton("Get Powerups🛡️💨", function()
+
+local player = game.Players.LocalPlayer
+local powerUps = workspace.Map.PowerUps
+
+local playerPosition = player.Character.HumanoidRootPart.Position
+
+for _, powerUp in pairs(powerUps:GetChildren()) do
+    if powerUp.Name == "Shield" or powerUp.Name == "Speed2x" then
+        powerUp.CFrame = CFrame.new(playerPosition + (player.Character.HumanoidRootPart.CFrame.LookVector * 3))
+    end
+end
+end)
+
+local tspeed = 0
+local minSpeed = 0
+local maxSpeed = 100
+local hb = game:GetService("RunService").Heartbeat
+local tpwalking = true
+local player = game:GetService("Players")
+local lplr = player.LocalPlayer
+local hum
+
+local function isNumber(str)
+    return tonumber(str) ~= nil or str == 'inf'
+end
+
+local function adjustSpeed(newSpeed)
+    if isNumber(newSpeed) then
+        local speedValue = tonumber(newSpeed)
+        if speedValue < minSpeed then
+            tspeed = minSpeed
+        elseif speedValue > maxSpeed then
+            tspeed = maxSpeed
+        else
+            tspeed = speedValue
+        end
+    end
+end
+
+local function setupCharacter()
+    local chr = lplr.Character or lplr.CharacterAdded:Wait()
+    hum = chr:WaitForChild("Humanoid")
+
+    -- Reemplazo de input field por KillingCheats:CreateTextbox
+    KillingCheats:CreateTextbox("Speed", function(text)
+        adjustSpeed(text)
+    end)
+
+    -- Bucle de movimiento
+    spawn(function() -- Usar spawn para permitir que el bucle funcione en paralelo
+        while tpwalking and hb:Wait() and chr and hum and hum.Parent do
+            if hum.MoveDirection.Magnitude > 0 then
+                local adjustedSpeed = tspeed * 0.2  -- Aumenta el multiplicador para velocidad mínima
+                chr:TranslateBy(hum.MoveDirection * adjustedSpeed)
+            end
+        end
+    end)
+end
+
+-- Configurar el personaje al iniciar
+setupCharacter()
+
+-- Conectar la función al evento CharacterAdded
+lplr.CharacterAdded:Connect(function()
+    -- Esperar que el nuevo personaje se configure antes de ejecutar
+    wait(0.5)  -- Espera un breve momento para asegurar que el personaje se cargue
+    setupCharacter()
+end)
